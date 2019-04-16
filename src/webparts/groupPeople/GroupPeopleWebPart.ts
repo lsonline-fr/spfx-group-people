@@ -62,8 +62,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
       }
     );
 
-    console.log(this._spSiteGrps);
-    sp.web.siteGroups.getByName(this.properties.SPGroups).users.get().then((users) => {
+    sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => {
       console.log(users);
     });
 
