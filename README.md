@@ -6,11 +6,11 @@ Display the members of a target SharePoint group. An alternative to display dyna
 
 ### Used SharePoint Framework Version
 
-1.7.1
+![SPFx 1.8.1](https://img.shields.io/badge/SPFx-1.8.1-success.svg)
 
 ## Applies to
 
-* [SharePoint Framework](https:/dev.office.com/sharepoint)
+* [SharePoint Framework](https://dev.office.com/sharepoint)
 * [Office 365 tenant](https://dev.office.com/sharepoint/docs/spfx/set-up-your-development-environment)
 
 ## Prerequisites
@@ -51,5 +51,3 @@ This SharePoint Framework Web Part allow to:
 - passing Web Part properties to React components
 - building dynamic web part properties
 - managing the displayed title
-
-![](https://telemetry.sharepointpnp.com/sp-dev-fx-webparts/samples/react-modern-charts)
