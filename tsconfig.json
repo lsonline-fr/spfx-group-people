@@ -1,5 +1,8 @@
 {
   "compilerOptions": {
+    "inlineSources": false,
+    "strictNullChecks": false,
+    "noUnusedLocals": false,
     "target": "es5",
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
@@ -19,7 +22,7 @@
       "webpack-env"
     ],
     "lib": [
-      "es5",
+      "es2015",
       "dom",
       "es2015.collection"
     ]
@@ -30,5 +33,6 @@
   "exclude": [
     "node_modules",
     "lib"
-  ]
+  ],
+  "extends": "./node_modules/@microsoft/rush-stack-compiler-2.7/includes/tsconfig-web.json"
 }

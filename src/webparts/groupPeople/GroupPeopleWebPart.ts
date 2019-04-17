@@ -1,15 +1,14 @@
 import * as React from 'react';
 import * as ReactDom from 'react-dom';
 import { Version } from '@microsoft/sp-core-library';
+import { BaseClientSideWebPart } from "@microsoft/sp-webpart-base";
 import {
-  BaseClientSideWebPart,
   IPropertyPaneConfiguration,
   PropertyPaneTextField,
   IPropertyPaneDropdownOption,
   PropertyPaneDropdown,
-  PropertyPaneChoiceGroup,
   PropertyPaneToggle
-} from '@microsoft/sp-webpart-base';
+} from '@microsoft/sp-property-pane';
 
 import * as strings from 'GroupPeopleWebPartStrings';
 import GroupPeople from './components/GroupPeople';
@@ -168,7 +167,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
   }
 
   private async fetchUsersGroup(): Promise<any> {
-    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter(function (u) { return u.UserId != null && u.Email != null && u.Email.length > 0; }); });
+    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter((u) => { return u.UserId != null && u.Email != null && u.Email.length > 0; }); });
   }
 
   private async getUserProfile(login) {
