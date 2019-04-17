@@ -13,13 +13,14 @@ import {
 
 import * as strings from 'GroupPeopleWebPartStrings';
 import GroupPeople from './components/GroupPeople';
+import GroupPeoplePlaceHolder from './components/GroupPeoplePlaceholder';
 import { IGroupPeopleProps } from './components/IGroupPeopleProps';
 
 import { sp } from "@pnp/sp";
-import { SiteGroup } from '@pnp/sp/src/sitegroups';
 
 export interface IGroupPeopleWebPartProps {
   SPGroups: string;
+  Layout: string;
 }
 
 /** Groupe People WebPart
@@ -28,12 +29,9 @@ export interface IGroupPeopleWebPartProps {
  */
 export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeopleWebPartProps> {
 
-  /**
-   * @type {IPropertyPaneDropdownOption[]}
-   * @property
-   * @private
-   */
-  private _spSiteGrps: IPropertyPaneDropdownOption[] = [];
+  private _spSiteGrps: any = null;
+
+  private _spGrpUsers: Array<any>[] = new Array;
 
   /** Init WebPart
    * @protected
@@ -44,8 +42,8 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
       spfxContext: this.context
     });
 
-    this.fetchGrpOptions().then((g) => {
-      this._spSiteGrps = g;
+    this.fetchSPGroups().then((spGroups) => {
+      this._spSiteGrps = spGroups;
     });
 
     return super.onInit();
@@ -55,17 +53,41 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    * @public
    */
   public render(): void {
-    const element: React.ReactElement<IGroupPeopleProps> = React.createElement(
-      GroupPeople,
-      {
-        title: 'toto'
-      }
-    );
+    // Check if a SharePoint group was selected. If not, display the PlaceHolder
+    if (this.properties.SPGroups) {
+      // Get Users from selected group
+      this.fetchUsersGroup().then((users) => {
+        return users;
+      }).then((u: any) => {
+        if (u.length > 0) {
+          // Get for each user, their profile information
+          u.forEach(user => {
+            this.getUserProfile(user.LoginName).then((r) => {
+              // Store the information to a property
+              this._spGrpUsers.push(r);
 
-    sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => {
-      console.log(users);
+              // Once all profile parsed, start the render
+              if (this._spGrpUsers.length == u.length) {
+                this.postRender();
+              }
+            });
+          });
+        } else {
+          this._spGrpUsers = new Array;
+          this.postRender();
+        }
+      });
+    } else {
+      const element: React.ReactElement<GroupPeoplePlaceHolder> = React.createElement(GroupPeoplePlaceHolder);
+      ReactDom.render(element, this.domElement);
+    }
+  }
+
+  private postRender() {
+    const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
+      title: this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title,
+      users: this._spGrpUsers
     });
-
     ReactDom.render(element, this.domElement);
   }
 
@@ -100,9 +122,9 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
               groupFields: [
                 PropertyPaneDropdown('SPGroups', {
                   label: strings.DropdownGroupLabel,
-                  options: this._spSiteGrps
+                  options: this.convertGrpToOptions(this._spSiteGrps)
                 }),
-                PropertyPaneChoiceGroup('layout', {
+                PropertyPaneChoiceGroup('Layout', {
                   label: strings.LayoutGroupLabel,
                   options: [
                     { key: 'compact', text: 'Compact', imageSize: { width: 32, height: 32 }, iconProps: { officeFabricIconFontName: 'DockLeft' } },
@@ -117,29 +139,23 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     };
   }
 
-  /**
-   * Get all groups of SharePoint Site
-   * @returns {Array<SiteGroup>}
-   * @async
-   * @private
-   */
   private async fetchSPGroups(): Promise<any> {
     return sp.web.siteGroups.get().then((grps) => { return grps; });
   }
 
-  /**
-   * Convert list of SharePoint groups to PropertyPaneDropdown options
-   * @returns {Array<IPropertyPaneDropdownOption>}
-   * @async
-   * @private
-   */
-  private async fetchGrpOptions(): Promise<IPropertyPaneDropdownOption[]> {
-    return this.fetchSPGroups().then((r) => {
-      var options: Array<IPropertyPaneDropdownOption> = new Array<IPropertyPaneDropdownOption>();
-      r.map((g: any) => {
-        options.push({ key: g.Id, text: g.Title });
-      });
-      return options;
+  private async fetchUsersGroup(): Promise<any> {
+    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter(function (u) { return u.UserId != null && u.Email != null && u.Email.length > 0; }); });
+  }
+
+  private async getUserProfile(login) {
+    return sp.profiles.getPropertiesFor(login).then((r) => { return r; });
+  }
+
+  private convertGrpToOptions(grp): IPropertyPaneDropdownOption[] {
+    var options: Array<IPropertyPaneDropdownOption> = new Array<IPropertyPaneDropdownOption>();
+    grp.map((g: any) => {
+      options.push({ key: g.Id, text: g.Title });
     });
+    return options;
   }
 }

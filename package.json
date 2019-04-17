@@ -13,6 +13,7 @@
     "typedoc": "typedoc"
   },
   "dependencies": {
+    "@microsoft/rush-stack-compiler-2.9": "^0.7.8",
     "@microsoft/sp-core-library": "1.7.1",
     "@microsoft/sp-lodash-subset": "1.7.1",
     "@microsoft/sp-office-ui-fabric-core": "^1.7.1",
@@ -21,10 +22,12 @@
     "@pnp/logging": "^1.3.2",
     "@pnp/odata": "^1.3.2",
     "@pnp/sp": "^1.3.2",
+    "@pnp/spfx-controls-react": "^1.12.0",
     "@types/es6-promise": "0.0.33",
     "@types/react": "16.4.2",
     "@types/react-dom": "16.0.5",
     "@types/webpack-env": "1.13.1",
+    "office-ui-fabric-react": "5.131.0",
     "react": "16.3.2",
     "react-dom": "16.3.2"
   },

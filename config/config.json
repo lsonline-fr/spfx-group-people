@@ -13,6 +13,7 @@
   },
   "externals": {},
   "localizedResources": {
-    "GroupPeopleWebPartStrings": "lib/webparts/groupPeople/loc/{locale}.js"
+    "GroupPeopleWebPartStrings": "lib/webparts/groupPeople/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
   }
 }
