@@ -4,6 +4,7 @@ declare interface IGroupPeopleWebPartStrings {
   LayoutGroupLabel: string;
   CustomTitleLabel: string;
   CustomTitleDescription: string;
+  ToggleTitleLabel: string;
 }
 
 declare module 'GroupPeopleWebPartStrings' {

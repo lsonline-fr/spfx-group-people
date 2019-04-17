@@ -22,12 +22,17 @@
     margin-bottom: 18px;
     font-weight: 100;
   }
+
+  .hidden {
+    display: none;
+  }
   
   .personaTile {
     display: table;
     width: 30%;
     float: left;
     height: 76px;
+    margin: 0 8px;
   }
 
   .persona {

@@ -7,7 +7,8 @@ import {
   PropertyPaneTextField,
   IPropertyPaneDropdownOption,
   PropertyPaneDropdown,
-  PropertyPaneChoiceGroup
+  PropertyPaneChoiceGroup,
+  PropertyPaneToggle
 } from '@microsoft/sp-webpart-base';
 
 import * as strings from 'GroupPeopleWebPartStrings';
@@ -21,6 +22,7 @@ export interface IGroupPeopleWebPartProps {
   SPGroups: string;
   Layout: string;
   CustomTitle: string;
+  ToggleTitle: boolean;
 }
 
 /** Groupe People WebPart
@@ -32,6 +34,8 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
   private _spSiteGrps: any = null;
 
   private _spGrpUsers: Array<any>[] = new Array;
+
+  private _changeTitleState: boolean = false;
 
   /** Init WebPart
    * @protected
@@ -53,40 +57,44 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    * @public
    */
   public render(): void {
-    // Check if a SharePoint group was selected. If not, display the PlaceHolder
-    if (this.properties.SPGroups) {
-      // Get Users from selected group
-      this.fetchUsersGroup().then((users) => {
-        return users;
-      }).then((u: any) => {
-        if (u.length > 0) {
-          // Get for each user, their profile information
-          u.forEach(user => {
-            this.getUserProfile(user.LoginName).then((r) => {
-              // Store the information to a property
-              this._spGrpUsers.push(r);
+    if (!this._changeTitleState) {
+      // Check if a SharePoint group was selected. If not, display the PlaceHolder
+      if (this.properties.SPGroups) {
+        // Get Users from selected group
+        this.fetchUsersGroup().then((users) => {
+          return users;
+        }).then((u: any) => {
+          if (u.length > 0) {
+            // Get for each user, their profile information
+            u.forEach(user => {
+              this.getUserProfile(user.LoginName).then((r) => {
+                // Store the information to a property
+                this._spGrpUsers.push(r);
 
-              // Once all profile parsed, start the render
-              if (this._spGrpUsers.length == u.length) {
-                this.postRender();
-              }
+                // Once all profile parsed, start the render
+                if (this._spGrpUsers.length == u.length) {
+                  this.postRender();
+                }
+              });
             });
-          });
-        } else {
-          this._spGrpUsers = new Array;
-          this.postRender();
-        }
-      });
-    } else {
-      const element: React.ReactElement<GroupPeoplePlaceHolder> = React.createElement(GroupPeoplePlaceHolder);
-      ReactDom.render(element, this.domElement);
+          } else {
+            this._spGrpUsers = new Array;
+            this.postRender();
+          }
+        });
+      } else {
+        const element: React.ReactElement<GroupPeoplePlaceHolder> = React.createElement(GroupPeoplePlaceHolder);
+        ReactDom.render(element, this.domElement);
+      }
     }
+    this._changeTitleState = false;
   }
 
-  private postRender() {
+  private postRender(users = undefined) {
     const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
-      title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title,
-      users: this._spGrpUsers
+      title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : this._spSiteGrps ? this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title : '',
+      users: users !== undefined ? users : this._spGrpUsers,
+      displayTitle: this.properties.ToggleTitle
     });
     ReactDom.render(element, this.domElement);
   }
@@ -106,6 +114,14 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     return Version.parse('1.0');
   }
 
+  protected onPropertyPaneFieldChanged(targetProperty: string, newValue: any) {
+    if (targetProperty == 'CustomTitle' || targetProperty == 'ToggleTitle') {
+      this._changeTitleState = true;
+      this.postRender();
+    }
+  }
+
+
   /** Property Pane Configuration
    * @returns {IPropertyPaneConfiguration}
    * @property
@@ -124,17 +140,21 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
                   label: strings.DropdownGroupLabel,
                   options: this.convertGrpToOptions(this._spSiteGrps)
                 }),
+                PropertyPaneToggle('ToggleTitle', {
+                  label: strings.ToggleTitleLabel
+                }),
                 PropertyPaneTextField('CustomTitle', {
                   label: strings.CustomTitleLabel,
-                  description: strings.CustomTitleDescription
-                }),
+                  description: strings.CustomTitleDescription,
+                  disabled: !this.properties.ToggleTitle
+                })/*,
                 PropertyPaneChoiceGroup('Layout', {
                   label: strings.LayoutGroupLabel,
                   options: [
                     { key: 'compact', text: 'Compact', imageSize: { width: 32, height: 32 }, iconProps: { officeFabricIconFontName: 'DockLeft' } },
                     { key: 'descriptive', text: 'Descriptive', imageSize: { width: 32, height: 32 }, iconProps: { officeFabricIconFontName: 'DiffInline' } }
                   ]
-                })
+                })*/
               ]
             }
           ]
@@ -157,9 +177,11 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
 
   private convertGrpToOptions(grp): IPropertyPaneDropdownOption[] {
     var options: Array<IPropertyPaneDropdownOption> = new Array<IPropertyPaneDropdownOption>();
-    grp.map((g: any) => {
-      options.push({ key: g.Id, text: g.Title });
-    });
+    if (grp && grp.length > 0){
+      grp.map((g: any) => {
+        options.push({ key: g.Id, text: g.Title });
+      });
+    }
     return options;
   }
 }

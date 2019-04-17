@@ -1,9 +1,10 @@
 define([], function() {
   return {
-    "PropertyPaneDescription": "Select a SharePoint group, and then you can select a number of personas and the layout",
+    "PropertyPaneDescription": "Select a SharePoint group to display all users who are member",
     "DropdownGroupLabel": "Group",
     "LayoutGroupLabel": "Layout",
-    "CustomTitleLabel": "Title",
-    "CustomTitleDescription": "Keep blank to display the SharePoint group name."
+    "CustomTitleLabel": "Alternate title",
+    "CustomTitleDescription": "Keep blank to display the SharePoint group name.",
+    "ToggleTitleLabel": "Show title"
   }
 });

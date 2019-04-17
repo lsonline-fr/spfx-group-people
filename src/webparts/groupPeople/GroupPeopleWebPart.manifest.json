@@ -20,6 +20,8 @@
     "title": { "default": "Group People" },
     "description": { "default": "Display user from SharePoint group" },
     "officeFabricIconFontName": "Group",
-    "properties": {}
+    "properties": {
+      "ToggleTitle": true
+    }
   }]
 }
