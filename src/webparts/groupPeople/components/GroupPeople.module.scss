@@ -27,6 +27,7 @@
     display: table;
     width: 30%;
     float: left;
+    height: 76px;
   }
 
   .persona {
@@ -37,5 +38,13 @@
   .persona > div {
     display: table-cell;
     vertical-align: middle;
+  }
+
+  .persona > div .ms-Persona-secondaryText > div {
+    display: block;
+    max-width: 85%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
