@@ -7,7 +7,6 @@ import {
   PropertyPaneTextField,
   IPropertyPaneDropdownOption,
   PropertyPaneDropdown,
-  PropertyPaneDropdownOptionType,
   PropertyPaneChoiceGroup
 } from '@microsoft/sp-webpart-base';
 
@@ -21,6 +20,7 @@ import { sp } from "@pnp/sp";
 export interface IGroupPeopleWebPartProps {
   SPGroups: string;
   Layout: string;
+  CustomTitle: string;
 }
 
 /** Groupe People WebPart
@@ -85,7 +85,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
 
   private postRender() {
     const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
-      title: this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title,
+      title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title,
       users: this._spGrpUsers
     });
     ReactDom.render(element, this.domElement);
@@ -123,6 +123,10 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
                 PropertyPaneDropdown('SPGroups', {
                   label: strings.DropdownGroupLabel,
                   options: this.convertGrpToOptions(this._spSiteGrps)
+                }),
+                PropertyPaneTextField('CustomTitle', {
+                  label: strings.CustomTitleLabel,
+                  description: strings.CustomTitleDescription
                 }),
                 PropertyPaneChoiceGroup('Layout', {
                   label: strings.LayoutGroupLabel,
