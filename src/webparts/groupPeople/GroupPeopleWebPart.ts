@@ -57,6 +57,8 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    */
   public render(): void {
     if (!this._changeTitleState) {
+      // reset userGroup
+      this._spGrpUsers = [];
       // Check if a SharePoint group was selected. If not, display the PlaceHolder
       if (this.properties.SPGroups) {
         // Get Users from selected group
@@ -91,13 +93,13 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
 
   /**
    * Render of compact users
-   * @param {Array<SP.UserProfiles.PersonProperties>} users Array of user profile properties
+   * @param {Array<SP.UserProfiles.PersonProperties>} grpUsers Array of user profile properties
    * @private
    */
-  private postRender(users = undefined) {
+  private postRender(grpUsers = undefined) {
     const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
-      title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : this._spSiteGrps ? this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title : '',
-      users: users !== undefined ? users : this._spGrpUsers,
+      title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : (this.properties.SPGroups !== undefined) ? this._spSiteGrps.find(g => g.Id == this.properties.SPGroups).Title : '',
+      users: grpUsers !== undefined ? grpUsers : this._spGrpUsers,
       displayTitle: this.properties.ToggleTitle
     });
     ReactDom.render(element, this.domElement);
@@ -190,7 +192,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    */
   private async fetchUsersGroup(): Promise<any> {
     // PrincipalType.User = 1 (SP.User)
-    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter((u) => { return u.PrincipalType == 1; }); });
+    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter((u) => { return u.PrincipalType == 1 && u.Email != null && u.Email.length > 0; }); });
   }
 
   /**
