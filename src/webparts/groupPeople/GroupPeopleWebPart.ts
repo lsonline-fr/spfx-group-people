@@ -92,14 +92,13 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
   }
 
   /**
-   * Render of compact users
-   * @param {Array<SP.UserProfiles.PersonProperties>} grpUsers Array of user profile properties
+   * Render of compact users layouts
    * @private
    */
-  private postRender(grpUsers = undefined) {
+  private postRender() {
     const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
       title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : (this.properties.SPGroups !== undefined) ? this._spSiteGrps.find(g => g.Id == this.properties.SPGroups).Title : '',
-      users: grpUsers !== undefined ? grpUsers : this._spGrpUsers,
+      users: this._spGrpUsers.sort((a:any,b:any) => (a.DisplayName > b.DisplayName) ? 1 : ((b.DisplayName > a.DisplayName) ? -1 : 0)),
       displayTitle: this.properties.ToggleTitle
     });
     ReactDom.render(element, this.domElement);
