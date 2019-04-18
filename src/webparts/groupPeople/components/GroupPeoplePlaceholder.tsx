@@ -7,8 +7,8 @@ export default class GroupPeoplePlaceHolder extends React.Component<any> {
         return (
             <Placeholder
                 iconName='Group'
-                iconText='People Group'
-                description='Display all people from SharePoint Group.' />
+                iconText='Group People'
+                description='Display the members of a target SharePoint group' />
         );
     }
 }

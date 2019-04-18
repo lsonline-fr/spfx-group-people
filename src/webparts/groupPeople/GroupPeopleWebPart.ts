@@ -89,6 +89,11 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     this._changeTitleState = false;
   }
 
+  /**
+   * Render of compact users
+   * @param {Array<SP.UserProfiles.PersonProperties>} users Array of user profile properties
+   * @private
+   */
   private postRender(users = undefined) {
     const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
       title: this.properties.CustomTitle.length > 0 ? this.properties.CustomTitle : this._spSiteGrps ? this._spSiteGrps.find(g => g.Id === this.properties.SPGroups).Title : '',
@@ -113,13 +118,18 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     return Version.parse('1.0');
   }
 
+  /**
+   * Customize the behavior of property pane change
+   * @param targetProperty 
+   * @param newValue 
+   * @protected
+   */
   protected onPropertyPaneFieldChanged(targetProperty: string, newValue: any) {
     if (targetProperty == 'CustomTitle' || targetProperty == 'ToggleTitle') {
       this._changeTitleState = true;
       this.postRender();
     }
   }
-
 
   /** Property Pane Configuration
    * @returns {IPropertyPaneConfiguration}
@@ -162,18 +172,44 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     };
   }
 
+  /**
+   * Get all SharePoint Groups
+   * @return {Array<SP.Group>} SharePoint groups
+   * @async
+   * @private
+   */
   private async fetchSPGroups(): Promise<any> {
     return sp.web.siteGroups.get().then((grps) => { return grps; });
   }
 
+  /**
+   * Get members of selected SharePoint group
+   * @return {Array<SP.User>} SharePoint Group Members
+   * @async
+   * @private
+   */
   private async fetchUsersGroup(): Promise<any> {
-    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter((u) => { return u.UserId != null && u.Email != null && u.Email.length > 0; }); });
+    // PrincipalType.User = 1 (SP.User)
+    return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter((u) => { return u.PrincipalType == 1; }); });
   }
 
+  /**
+   * Get User Profile specified by his LoginName
+   * @param {string} login LoginName of user
+   * @return {SP.UserProfiles.PersonProperties} User Profile Properties
+   * @async
+   * @private
+   */
   private async getUserProfile(login) {
-    return sp.profiles.getPropertiesFor(login).then((r) => { return r; });
+    return sp.profiles.getPropertiesFor(login).then((r) => { console.log(r);return r; });
   }
 
+  /**
+   * Convert array of SharePoint groups to array of DropDown options
+   * @param {Array<SP.Group>} grp Array of SharePoint groups
+   * @return {Array<IPropertyPaneDropdownOption>} DropDown options
+   * @private
+   */
   private convertGrpToOptions(grp): IPropertyPaneDropdownOption[] {
     var options: Array<IPropertyPaneDropdownOption> = new Array<IPropertyPaneDropdownOption>();
     if (grp && grp.length > 0){
