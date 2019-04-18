@@ -201,7 +201,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    * @private
    */
   private async getUserProfile(login) {
-    return sp.profiles.getPropertiesFor(login).then((r) => { console.log(r);return r; });
+    return sp.profiles.getPropertiesFor(login).then((r) => { return r; });
   }
 
   /**
