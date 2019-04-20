@@ -47,9 +47,8 @@ Display the members of a target SharePoint group. An alternative to display dyna
 
 This SharePoint Framework Web Part allow to:
 
-- retrieving SharePoint Group from th current web
-- retrieving all user in the specified group (through security group and only user with a `UserId` and an `Email`)
-- retrieving user profile properties
+- retrieving the SharePoint Groups from the current web
+- retrieving users profiles properties
 - passing Web Part properties to React components
 - building dynamic web part properties
 - managing the displayed title
