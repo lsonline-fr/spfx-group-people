@@ -1,5 +1,5 @@
 module.exports = {
-    mode: "modules",
+    mode: "file",
     out: "./docs",
     exclude: "test,dist,node_modules",
     src: "./src",

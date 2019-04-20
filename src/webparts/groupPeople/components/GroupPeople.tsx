@@ -4,15 +4,29 @@ import { IGroupPeopleProps } from './IGroupPeopleProps';
 
 import { Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 
+/** Group People UI
+ * @class
+ * @extends
+ */
 export default class GroupPeople extends React.Component<IGroupPeopleProps, {}> {
 
+  /** Toggle Title state
+   * @private
+   */
   private _toggleTitle: string = '';
 
+  /** Default constructor
+   * @param props 
+   */
   constructor(props: IGroupPeopleProps) {
     super(props);
     this._toggleTitle = props.displayTitle ? '' : styles.hidden;
   }
 
+  /** Default render
+   * @returns HTML Template
+   * @public
+   */
   public render(): JSX.Element {
     this._toggleTitle = this.props.displayTitle ? '' : styles.hidden;
     return (

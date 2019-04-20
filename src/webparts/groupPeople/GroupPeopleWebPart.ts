@@ -26,17 +26,28 @@ export interface IGroupPeopleWebPartProps {
 
 /** Groupe People WebPart
  * @class
- * @extends BaseClientSideWebPart
+ * @extends
  */
 export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeopleWebPartProps> {
 
+  /** SharePoint site groups
+   * @private
+   */
   private _spSiteGrps: any = null;
 
+  /** Members of SharePoint group
+   * @private
+   */
   private _spGrpUsers: Array<any>[] = new Array;
 
+  /** Title statement
+   * Detect if only the title is edited from the property pane
+   * @private
+   */
   private _changeTitleState: boolean = false;
 
   /** Init WebPart
+   * @returns
    * @protected
    */
   protected onInit(): Promise<void> {
@@ -91,8 +102,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     this._changeTitleState = false;
   }
 
-  /**
-   * Render of compact users layouts
+  /** Render the compact users layouts
    * @private
    */
   private postRender() {
@@ -112,15 +122,14 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
   }
 
   /** Version
-   * @returns {Version}
+   * @returns
    * @protected
    */
   protected get dataVersion(): Version {
     return Version.parse('1.0');
   }
 
-  /**
-   * Customize the behavior of property pane change
+  /** Customize the behavior of property pane change
    * @param targetProperty 
    * @param newValue 
    * @protected
@@ -133,7 +142,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
   }
 
   /** Property Pane Configuration
-   * @returns {IPropertyPaneConfiguration}
+   * @returns
    * @property
    */
   protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
@@ -157,14 +166,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
                   label: strings.CustomTitleLabel,
                   description: strings.CustomTitleDescription,
                   disabled: !this.properties.ToggleTitle
-                })/*,
-                PropertyPaneChoiceGroup('Layout', {
-                  label: strings.LayoutGroupLabel,
-                  options: [
-                    { key: 'compact', text: 'Compact', imageSize: { width: 32, height: 32 }, iconProps: { officeFabricIconFontName: 'DockLeft' } },
-                    { key: 'descriptive', text: 'Descriptive', imageSize: { width: 32, height: 32 }, iconProps: { officeFabricIconFontName: 'DiffInline' } }
-                  ]
-                })*/
+                })
               ]
             }
           ]
@@ -173,9 +175,8 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     };
   }
 
-  /**
-   * Get all SharePoint Groups
-   * @return {Array<SP.Group>} SharePoint groups
+  /** Get all SharePoint Groups
+   * @return SharePoint groups
    * @async
    * @private
    */
@@ -183,9 +184,8 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     return sp.web.siteGroups.get().then((grps) => { return grps; });
   }
 
-  /**
-   * Get members of selected SharePoint group
-   * @return {Array<SP.User>} SharePoint Group Members
+  /** Get members of selected SharePoint group
+   * @return SharePoint Group Members
    * @async
    * @private
    */
@@ -194,10 +194,9 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     return sp.web.siteGroups.getById(parseInt(this.properties.SPGroups)).users.get().then((users) => { return users.filter((u) => { return u.PrincipalType == 1 && u.Email != null && u.Email.length > 0; }); });
   }
 
-  /**
-   * Get User Profile specified by his LoginName
-   * @param {string} login LoginName of user
-   * @return {SP.UserProfiles.PersonProperties} User Profile Properties
+  /** Get User Profile specified by his LoginName
+   * @param login LoginName of user
+   * @return User Profile Properties
    * @async
    * @private
    */
@@ -205,10 +204,9 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
     return sp.profiles.getPropertiesFor(login).then((r) => { return r; });
   }
 
-  /**
-   * Convert array of SharePoint groups to array of DropDown options
-   * @param {Array<SP.Group>} grp Array of SharePoint groups
-   * @return {Array<IPropertyPaneDropdownOption>} DropDown options
+  /** Convert array of SharePoint groups to array of DropDown options
+   * @param grp Array of SharePoint groups
+   * @return DropDown options
    * @private
    */
   private convertGrpToOptions(grp): IPropertyPaneDropdownOption[] {
