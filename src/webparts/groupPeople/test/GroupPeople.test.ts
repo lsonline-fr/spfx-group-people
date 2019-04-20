@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 import GroupPeople from '../components/GroupPeople';
 import { IGroupPeopleProps } from '../components/IGroupPeopleProps';
 
-describe('GroupePeople', () => {
+describe('Groupe People Render', () => {
 
     let reactComponent: ReactWrapper<IGroupPeopleProps>;
   
@@ -42,4 +42,5 @@ describe('GroupePeople', () => {
       // Assert
       expect(text).toBe('My Site Owners');  
     });
+
   });
