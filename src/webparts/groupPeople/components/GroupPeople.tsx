@@ -34,7 +34,7 @@ export default class GroupPeople extends React.Component<IGroupPeopleProps, {}> 
         <div className={styles.container}>
           <div className={styles.row}>
             <div className={styles.column}>
-              <div className={[styles.title, this._toggleTitle].join(' ')} role="heading">{this.props.title}</div>
+              <h2 className={[styles.title, this._toggleTitle].join(' ')} role="heading">{this.props.title}</h2>
                 {this.props.users.map((u:any) => {
                   return (<div className={styles.personaTile}><Persona
                     text={u.DisplayName} 
