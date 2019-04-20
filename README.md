@@ -4,6 +4,8 @@
 
 Display the members of a target SharePoint group. An alternative to display dynamically people without edit the page.
 
+![](assets/LsOnline-SPFx-GroupPeople.gif)
+
 ### Used SharePoint Framework Version
 
 ![SPFx 1.8.1](https://img.shields.io/badge/SPFx-1.8.1-success.svg)
