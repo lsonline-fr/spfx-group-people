@@ -1,6 +1,7 @@
-/// <reference types="jest" />
+/// <reference types="mocha" />
 
 import * as React from 'react';
+import { assert, expect } from 'chai';
 import { configure, mount, ReactWrapper } from 'enzyme';
 import * as Adapter from 'enzyme-adapter-react-16';
 
@@ -28,19 +29,16 @@ describe('Groupe People Render', () => {
     afterEach(() => {
       reactComponent.unmount();
     });
-  
-    it('should has the correct title', () => {
-  
-      // Arrange
-      // define contains/like css selector
-      let cssSelector: string = 'h2';
-  
-      // Act
-      // find the elemet using css selector
-      const text = reactComponent.find(cssSelector).text();
-  
-      // Assert
-      expect(text).toBe('My Site Owners');  
+
+    it('should do something', () => {
+      assert.ok(true);
     });
 
+    it('should render something', () => {
+      expect(reactComponent.find('div')).to.not.be.null;
+    });
+  
+    it('should has the correct title', () => {
+      expect(reactComponent.find('h2').text()).to.be.equals('My Site Owners');  
+    });
   });
