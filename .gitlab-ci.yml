@@ -23,7 +23,10 @@ changelog:
   image: node:latest
   stage: package
   only:
-    - tags
+    - master
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
   script:
     - npm install -g conventional-changelog-cli && npm install -g version && apt-get install git
     - mkdir repo && cd ./repo
