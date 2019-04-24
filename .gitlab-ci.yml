@@ -2,6 +2,22 @@ stages:
   - build
   - package
 
+pages:
+  stage: deploy
+  script:
+  - npm i
+  - npm run doc
+  - mkdir .public
+  - cp -r ./docs/* .public
+  - cp -r ./assets .public/
+  - mv .public public
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
+
+
 webpart:
   image: node:8.15.0
   stage: build
@@ -23,7 +39,7 @@ changelog:
   image: node:latest
   stage: package
   only:
-    - master
+    - tags
   script:
     - npm install -g conventional-changelog-cli && npm install -g version && apt-get install git
     - mkdir repo && cd ./repo
