@@ -33,3 +33,4 @@ obj
 *.scss.ts
 docs
 jest
+package-lock.json
