@@ -1,23 +1,6 @@
 stages:
-  - deploy
   - build
   - package
-
-pages:
-  image: node:latest
-  stage: deploy
-  only:
-    - master
-  script:
-    - npm i
-    - npm run doc
-    - mkdir .public
-    - cp -r ./docs/* .public
-    - cp -r ./assets .public/
-    - mv .public public
-  artifacts:
-    paths:
-    - public
 
 webpart:
   image: node:8.15.0
@@ -48,4 +31,4 @@ changelog:
     - cd ./$CI_PROJECT_NAME
     - conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && git pull
     - git config --global user.email "$GITLAB_USER_EMAIL"
-    - git commit -m 'Update Changelog from CI' -m '[ci skip]' && git push origin $CI_COMMIT_REF_NAME &> /dev/null
+    - git commit -m 'Update Changelog from CI' && git push origin $CI_COMMIT_REF_NAME &> /dev/null
