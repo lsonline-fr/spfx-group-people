@@ -4,19 +4,18 @@ stages:
 
 pages:
   stage: deploy
+  only:
+    - master
   script:
-  - npm i
-  - npm run doc
-  - mkdir .public
-  - cp -r ./docs/* .public
-  - cp -r ./assets .public/
-  - mv .public public
+    - npm i
+    - npm run doc
+    - mkdir .public
+    - cp -r ./docs/* .public
+    - cp -r ./assets .public/
+    - mv .public public
   artifacts:
     paths:
     - public
-  only:
-  - master
-
 
 webpart:
   image: node:8.15.0
