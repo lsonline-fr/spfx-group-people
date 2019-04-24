@@ -2,7 +2,7 @@ stages:
   - build
   - package
 
-extension:
+webpart:
   image: node:8.15.0
   stage: build
   only:
@@ -18,3 +18,17 @@ extension:
     paths:
     - group-people.sppkg
   allow_failure: false
+
+changelog:
+  image: node:latest
+  stage: package
+  only:
+    - master
+  script:
+    - npm install -g conventional-changelog-cli && npm install -g version && apt-get install git
+    - mkdir repo && cd ./repo
+    - git clone -b $CI_COMMIT_REF_NAME https://gitlab-runner:$CI_ACCESS_TOKEN@gitlab.lsonline.fr/$CI_PROJECT_PATH.git && git init &> /dev/null
+    - cd ./$CI_PROJECT_NAME
+    - conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md && git pull
+    - git config --global user.email "$GITLAB_USER_EMAIL"
+    - git commit -m 'Update Changelog from CI' -m '[ci skip]' && git push origin $CI_COMMIT_REF_NAME &> /dev/null
