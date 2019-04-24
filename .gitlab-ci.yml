@@ -4,6 +4,7 @@ stages:
   - package
 
 pages:
+  image: node:latest
   stage: deploy
   only:
     - master
