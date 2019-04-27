@@ -10,6 +10,7 @@ pages:
     - master
   script:
     - npm i
+    - npm audit fix --force
     - npm run doc
     - mkdir .public
     - cp -r ./docs/* .public
@@ -27,6 +28,7 @@ webpart:
   script:
     - npm i -g gulp
     - npm i
+    - npm audit fix --force
     - gulp bundle --ship
     - gulp package-solution --ship
     - mv ./sharepoint/solution/group-people.sppkg ././group-people.sppkg
