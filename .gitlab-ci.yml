@@ -8,6 +8,9 @@ pages:
   stage: deploy
   only:
     - master
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
   script:
     - npm i
     - npm audit fix --force
