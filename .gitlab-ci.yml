@@ -4,7 +4,7 @@ stages:
   - package
 
 pages:
-  image: node:11
+  image: node:8.15.0
   stage: deploy
   only:
     - master
