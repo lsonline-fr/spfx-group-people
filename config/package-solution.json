@@ -1,9 +1,9 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "group-people-client-side-solution",
+    "name": "Group People",
     "id": "6b9e0a5d-fc44-44d9-88fd-e2c890db3870",
-    "version": "1.0.0.1",
+    "version": "1.0.0.2",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true
   },
