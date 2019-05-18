@@ -182,7 +182,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    * @private
    */
   private async fetchSPGroups(): Promise<any> {
-    return sp.web.siteGroups.get().then((grps) => { return grps.filter((g) => { return !/^SharingLinks./.test(g.LoginName) }); });
+    return sp.web.siteGroups.get().then((grps) => { return grps.filter((g) => { return !/^SharingLinks./.test(g.LoginName); }); });
   }
 
   /** Get members of selected SharePoint group
