@@ -1,3 +1,20 @@
+## [1.0.1](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/compare/v1.0.0...v1.0.1) (2019-05-18)
+
+
+### Bug Fixes
+
+* [#1](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/issues/1) - Hide SharingLinks groups ([6506123](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/6506123))
+* async variable this._spSiteGrps can be null ([72c8e05](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/72c8e05))
+* package solution version error ([9a812e5](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/9a812e5))
+
+
+### Features
+
+* reset changelog ([3815bd4](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/3815bd4))
+* update readme file ([3d41f5a](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/3d41f5a))
+
+
+
 # [1.0.0](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/compare/948404b...v1.0.0) (2019-04-27)
 
 
