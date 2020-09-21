@@ -8,19 +8,16 @@ Display the members of a target SharePoint group. An alternative to display dyna
 
 ### Used SharePoint Framework Version
 
-![SPFx 1.8.1](https://img.shields.io/badge/SPFx-1.8.1-success.svg)
+![SPFx 1.11.0](https://img.shields.io/badge/SPFx-1.11.0-success.svg)
 
 ## Applies to
 
-* [SharePoint Framework][1]
-* [Office 365 tenant][2]
+* [SharePoint Framework Developer][1]
+* [Office 365 developer tenant][2]
 
 ## Prerequisites
- 
- * React 
- * PnP-JS-Core
- * React UI Fabric
- * SPFx Controls PlaceHolder
+
+No prerequisites
 
 ## Disclaimer
 
@@ -28,15 +25,11 @@ Display the members of a target SharePoint group. An alternative to display dyna
 
 ---
 
-## Prerequisites
-
-- SharePoint Online tenant with Office Graph content enabled
-
 ## Minimal Path to Awesome
 
 To build manually the package, please make sure you have the prerequisites like illustrated to the [Set up your SharePoint Framework development environment][3] article and follow the next steps:
 
-* clone this repo
+* Clone this repository
 * in the command line run:
   * `npm i`
   * `gulp bundle --ship`
@@ -48,12 +41,21 @@ To build manually the package, please make sure you have the prerequisites like 
 
 This SharePoint Framework Web Part allow to:
 
-- retrieving the SharePoint Groups from the current web
-- retrieving users profiles properties
+- retrieving the SharePoint Groups from the current site
+- retrieving SharePoint users profiles properties
 - passing Web Part properties to React components
-- building dynamic web part properties
+- building dynamic web part properties (SharePoint groups)
 - managing the displayed title
+- choose to keep web part visible or not if nothing to show
+- manage personas size (regular, large or extra large)
+- manage user profiles properties to show
 
-[1]: https://dev.office.com/sharepoint
-[2]: https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant
-[3]: https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-development-environment
+### Next steps
+
+- Get members of AD security groups - recursively (Graph API)
+- Get members of Office 365 group (Graph API)
+- Get user profile from Microsoft 365 (Graph API)
+
+[1]: https://docs.microsoft.com/sharepoint/dev/spfx/sharepoint-framework-overview
+[2]: https://docs.microsoft.com/sharepoint/dev/spfx/set-up-your-developer-tenant
+[3]: https://docs.microsoft.com/sharepoint/dev/spfx/set-up-your-development-environment

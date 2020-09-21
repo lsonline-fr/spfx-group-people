@@ -1,8 +1,9 @@
-@import '~@microsoft/sp-office-ui-fabric-core/dist/sass/SPFabricCore.scss';
+@import '~office-ui-fabric-react/dist/sass/References.scss';
 
 .groupPeople {
   .container {
-    margin: 0px auto;
+    @include ms-Grid;
+    padding: 0;
   }
 
   .row {
@@ -34,15 +35,14 @@
   }
   
   .personaTile {
-    display: table;
-    width: 30%;
-    float: left;
-    height: 76px;
-    margin: 0 8px;
+    @include ms-Grid-col;
+    @include ms-lg4;
+    @include ms-md4;
+    @include ms-sm12;
+    margin: 10px 0;
   }
 
   .persona {
-    display: table-row;
     width: 100%;
   }
 
