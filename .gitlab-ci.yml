@@ -1,10 +1,67 @@
+image: node:10
+
 stages:
-  - deploy
+  - setup
   - build
+  - test
+  - deploy
   - package
 
+npm:
+  stage: setup
+  only:
+    - master
+    - dev
+    - merge_requests
+    - tag
+  script:
+    - npm i -g pnpm
+    - pnpm i
+  cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+
+webpart:
+  stage: build
+  only:
+    - master
+    - dev
+    - merge_requests
+  script:
+    - npm run build
+    - mv ./sharepoint/solution/group-people.sppkg ././group-people.sppkg
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
+  artifacts:
+    paths:
+    - group-people.sppkg
+  allow_failure: false
+
+coverage:
+  stage: test
+  only:
+    - master
+    - dev
+    - merge_requests
+  script:
+    - npm test
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
+  artifacts:
+    paths:
+      - jest
+    reports:
+      cobertura: jest/cobertura-coverage.xml
+      junit:  junit.xml
+
 pages:
-  image: node:8.15.0
   stage: deploy
   only:
     - master
@@ -12,34 +69,21 @@ pages:
     variables:
       - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
   script:
-    - npm i
     - npm run doc
     - mkdir .public
     - cp -r ./docs/* .public
     - cp -r ./assets .public/
     - mv .public public
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
   artifacts:
     paths:
     - public
 
-webpart:
-  image: node:8.15.0
-  stage: build
-  only:
-    - tags
-  script:
-    - npm i -g gulp
-    - npm i
-    - gulp bundle --ship
-    - gulp package-solution --ship
-    - mv ./sharepoint/solution/group-people.sppkg ././group-people.sppkg
-  artifacts:
-    paths:
-    - group-people.sppkg
-  allow_failure: false
-
 changelog:
-  image: node:latest
   stage: package
   only:
     - master

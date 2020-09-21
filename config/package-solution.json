@@ -1,11 +1,18 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "Group People",
+    "name": "SharePoint Group People",
     "id": "6b9e0a5d-fc44-44d9-88fd-e2c890db3870",
-    "version": "1.0.0.2",
+    "version": "1.1.0.0",
     "includeClientSideAssets": true,
-    "skipFeatureDeployment": true
+    "skipFeatureDeployment": true,
+    "developer": {
+      "name": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "websiteUrl": "",
+      "mpnId": ""
+    }
   },
   "paths": {
     "zippedPackage": "solution/group-people.sppkg"
