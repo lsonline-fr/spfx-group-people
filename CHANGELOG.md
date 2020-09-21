@@ -1,3 +1,7 @@
+# [1.1.0](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/compare/v1.0.1...v1.1.0) (2020-09-21)
+
+
+
 ## [1.0.1](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/compare/v1.0.0...v1.0.1) (2019-05-18)
 
 
