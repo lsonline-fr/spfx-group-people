@@ -19,6 +19,9 @@ coverage
 # OSX
 .DS_Store
 
+# Windows
+thumbs.db
+
 # Visual Studio files
 .ntvs_analysis.dat
 .vs
@@ -32,4 +35,11 @@ obj
 # Styles Generated Code
 *.scss.ts
 docs
+
+# Code coverage
 jest
+junit.xml
+
+# npm package-lock
+pnpm-lock.yaml
+package-lock.json

@@ -2,7 +2,10 @@ import * as React from 'react';
 import styles from './GroupPeople.module.scss';
 import { IGroupPeopleProps } from './IGroupPeopleProps';
 
-import { Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
+import { Persona } from 'office-ui-fabric-react/lib/Persona';
+import PeopleCard from '../models/PeopleCard';
+
+import * as strings from 'GroupPeopleWebPartStrings';
 
 /** Group People UI
  * @class
@@ -14,6 +17,11 @@ export default class GroupPeople extends React.Component<IGroupPeopleProps, {}> 
    * @private
    */
   private _toggleTitle: string = '';
+
+  /** Display a message if no People to display and if don't hide webpart
+   * @private
+   */
+  private _displayDefaultMessage: string = '';
 
   /** Default constructor
    * @param props 
@@ -29,18 +37,21 @@ export default class GroupPeople extends React.Component<IGroupPeopleProps, {}> 
    */
   public render(): JSX.Element {
     this._toggleTitle = this.props.displayTitle ? '' : styles.hidden;
+    this._displayDefaultMessage = (this.props.users.length == 0 && !this.props.hide) ? '' : styles.hidden;
     return (
       <div className={styles.groupPeople}>
         <div className={styles.container}>
           <div className={styles.row}>
             <div className={styles.column}>
               <h2 className={[styles.title, this._toggleTitle].join(' ')} role="heading">{this.props.title}</h2>
-              {this.props.users.map((u:any) => {
-                return (<div className={styles.personaTile}><Persona
-                  text={u.DisplayName} 
-                  secondaryText={u.Title}
-                  imageUrl={u.PictureUrl} 
-                  size={PersonaSize.size48}
+              <div className={['grpPeopleNoItem', this._displayDefaultMessage].join(' ')}>{strings.NoItemFound}</div>
+              {this.props.users.map((p: PeopleCard) => {
+                return (<div className={styles.personaTile} key={p.key}><Persona
+                  text={p.lineOne}
+                  secondaryText={p.lineTwo}
+                  tertiaryText={p.lineThree}
+                  imageUrl={p.image}
+                  size={this.props.size}
                   className={styles.persona}
                 /></div>);
               })}

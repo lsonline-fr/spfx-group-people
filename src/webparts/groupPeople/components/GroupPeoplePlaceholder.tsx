@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Placeholder } from "@pnp/spfx-controls-react/lib/Placeholder";
 
+import strings from 'GroupPeopleWebPartStrings';
+
 /** Group People PlaceHolder UI
  * @class
  * @extends
@@ -16,8 +18,8 @@ export default class GroupPeoplePlaceHolder extends React.Component<any> {
         return (
             <Placeholder
                 iconName='Group'
-                iconText='Group People'
-                description='Display the members of a target SharePoint group' />
+                iconText={strings.PlaceHolderHeader}
+                description={strings.PlaceHolderText} />
         );
     }
 }
