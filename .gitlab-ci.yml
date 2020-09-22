@@ -10,7 +10,7 @@ stages:
 npm:
   stage: setup
   only:
-    - branches@${CI_PROJECT_PATH}
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
   except:
     variables:
@@ -26,7 +26,7 @@ npm:
 webpart:
   stage: build
   only:
-    - branches@${CI_PROJECT_PATH}
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
   except:
     variables:
@@ -46,7 +46,7 @@ webpart:
 coverage:
   stage: test
   only:
-    - branches@${CI_PROJECT_PATH}
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
   except:
     variables:
@@ -68,7 +68,7 @@ coverage:
 pages:
   stage: deploy
   only:
-    - master@${CI_PROJECT_PATH}
+    - master@SharePoint/sp-dev-fx-webparts/group-people
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
@@ -90,7 +90,7 @@ pages:
 changelog:
   stage: package
   only:
-    - master@${CI_PROJECT_PATH}
+    - master@SharePoint/sp-dev-fx-webparts/group-people
   script:
     - npm install -g conventional-changelog-cli && npm install -g version && apt-get install git
     - mkdir repo && cd ./repo
