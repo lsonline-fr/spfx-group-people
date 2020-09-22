@@ -41,8 +41,7 @@ webpart:
     policy: pull
   artifacts:
     paths:
-    - group-people.sppkg
-  allow_failure: false
+    - public
 
 coverage:
   stage: test
