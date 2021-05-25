@@ -16,7 +16,7 @@ npm:
     variables:
       - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
   script:
-    - npm i -g pnpm
+    - npm i -g pnpm@5.18.9
     - pnpm i
   cache:
     key: ${CI_COMMIT_REF_SLUG}
