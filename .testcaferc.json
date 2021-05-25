@@ -1,0 +1,38 @@
+{
+    "src": ["testcafe/fixture/**/*.testcafe.ts"],
+    "reporter": [
+        {
+            "name": "spec"
+        },
+        {
+            "name": "json",
+            "output": "testcafe_reports/report.json"
+        },
+        {
+            "name": "junit",
+            "output": "testcafe_reports/report-junit.xml"
+        }
+    ],
+    "screenshots": {
+        "takeOnFails": true,
+        "fullPage": true,
+        "path": "testcafe_screenshots/",
+        "pathPattern": "${DATE}_${TIME}/test-${TEST_INDEX}/${USERAGENT}/${FILE_INDEX}.png"
+    },
+    "videoPath": "testcafe_videos/",
+    "videoOptions": {
+        "singleFile": true,
+        "failedOnly": true,
+        "pathPattern": "${USERAGENT}/test-${FILE_INDEX}-${DATE}-${TIME}.mp4"
+    },
+    "videoEncodingOptions": {
+        "r": 20
+    },
+    "disablePageCaching": false,
+    "skipJsErrors": true,
+    "debugMode": false,
+    "color": true,
+    "qrCode": true,
+    "developmentMode": false,
+    "speed": 1
+}
