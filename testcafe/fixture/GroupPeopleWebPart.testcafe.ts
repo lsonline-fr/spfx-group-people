@@ -92,6 +92,32 @@ test('Should change picture size to \'Extralarge\' (100)', async t => {
     await t.expect(largeSizePicture).ok();
 });
 
+/*
+test('Should display Web Part and default message when no people existing into the selected group', async t => {
+    
+});
+
+test('Should hide Web Part when no people existing into the selected group', async t => {
+    
+});
+
+test('Should display user initials when no picture', async t => {
+    
+});
+
+test('Should display the same value on the \'Line 1\' than the \'Line 3\'', async t => {
+    
+});
+
+test('Should display the same value on the \'Line 2\' than the \'Line 3\'', async t => {
+    
+});
+
+test('Should display the same value on the \'Line 3\' than the \'Line 1\'', async t => {
+    
+});
+*/
+
 test('Should discard changes', async t => {
     await SPPage.discardChanges();
 });
