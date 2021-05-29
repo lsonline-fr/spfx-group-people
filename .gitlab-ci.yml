@@ -1,14 +1,21 @@
 image: node:10
 
 stages:
-  - setup
+  - .pre
   - build
   - test
-  - deploy
+  - testcafe
+  - doc
   - package
 
-npm:
-  stage: setup
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .npm/
+
+install:
+  stage: .pre
   only:
     - branches@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
@@ -23,28 +30,10 @@ npm:
     paths:
       - node_modules/
 
-webpart:
-  stage: build
-  only:
-    - branches@SharePoint/sp-dev-fx-webparts/group-people
-    - merge_requests
-  except:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
-  script:
-    - npm run build
-    - mv ./sharepoint/solution/group-people.sppkg ././group-people.sppkg
-  cache: 
-    key: ${CI_COMMIT_REF_SLUG}
-    paths:
-      - node_modules/
-    policy: pull
-  artifacts:
-    paths:
-    - group-people.sppkg
-
 coverage:
   stage: test
+  needs: ["install"]
+  dependencies: [install]
   only:
     - branches@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
@@ -65,8 +54,76 @@ coverage:
       cobertura: jest/cobertura-coverage.xml
       junit:  junit.xml
 
+testcafe_chrome:
+  stage: testcafe
+  needs: ["webpart"]
+  dependencies: [webpart]
+  only:
+    - master@SharePoint/sp-dev-fx-webparts/group-people
+    - dev@SharePoint/sp-dev-fx-webparts/group-people
+  image: circleci/node:10-browsers
+  environment:
+    name: ltsrdev
+  resource_group: ltsrdev
+  script:
+    - npm run testcafe:chrome
+  artifacts:
+    when: always
+    paths:
+      - testcafe_videos/**/*.mp4
+      - testcafe_screenshots/**/*.png
+    expire_in: 1 day
+    reports:
+      junit: ./testcafe_reports/*-junit.xml
+
+testcafe_firefox:
+  stage: testcafe
+  needs: ["webpart"]
+  dependencies: [webpart]
+  only:
+    - master@SharePoint/sp-dev-fx-webparts/group-people
+    - dev@SharePoint/sp-dev-fx-webparts/group-people
+  image: circleci/node:10-browsers
+  environment:
+    name: ltsrdev
+  resource_group: ltsrdev
+  script:
+    - npm run testcafe:firefox
+  artifacts:
+    when: always
+    paths:
+      - testcafe_videos/**/*.mp4
+      - testcafe_screenshots/**/*.png
+    expire_in: 1 day
+    reports:
+      junit: ./testcafe_reports/*-junit.xml
+
+webpart:
+  stage: build
+  needs: ["install"]
+  dependencies: [install]
+  only:
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
+    - merge_requests
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
+  script:
+    - npm run build
+    - mv ./sharepoint/solution/group-people.sppkg ././group-people.sppkg
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
+  artifacts:
+    paths:
+    - group-people.sppkg
+
 pages:
-  stage: deploy
+  stage: doc
+  needs: ["install"]
+  dependencies: [install]
   only:
     - master@SharePoint/sp-dev-fx-webparts/group-people
   except:
