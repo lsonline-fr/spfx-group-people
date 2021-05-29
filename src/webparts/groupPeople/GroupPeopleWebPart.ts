@@ -117,7 +117,7 @@ export default class GroupPeopleWebPart extends BaseClientSideWebPart<IGroupPeop
    * @private
    */
   private postRender() {
-    if ((this._spGrpUsers && this._spGrpUsers.length > 0) || (this._spGrpUsers && this._spGrpUsers.length == 0 && (undefined == this.properties.HideWebPart || false == this.properties.HideWebPart || DisplayMode.Edit == this.displayMode))) {
+    if ((this._spGrpUsers && this._spGrpUsers.length > 0) || (this._spGrpUsers && this._spGrpUsers.length == 0 && (!this.properties.HideWebPart || DisplayMode.Edit == this.displayMode))) {
       this._grpTitle = this._grpTitle ? this._grpTitle : (undefined !== this.properties.SPGroups && null != this._spSiteGrps) ? this._spSiteGrps.find(g => g.Id == parseInt(this.properties.SPGroups)).Title : '';
       const element: React.ReactElement<IGroupPeopleProps> = React.createElement(GroupPeople, {
         title: (this.properties.CustomTitle && this.properties.CustomTitle.length > 0) ? this.properties.CustomTitle : this._grpTitle,
