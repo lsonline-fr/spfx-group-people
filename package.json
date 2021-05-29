@@ -10,9 +10,9 @@
     "build": "gulp bundle --ship && gulp package-solution --ship",
     "clean": "gulp clean",
     "test": "jest",
-    "testcafe:edge": "testcafe edge:emulation:width=1364;height=800",
-    "testcafe:firefox": "testcafe firefox",
-    "testcafe:chrome": "testcafe chrome:emulation:width=1364;height=800",
+    "testcafe:edge": "testcafe edge:headless:emulation:width=1364;height=800",
+    "testcafe:firefox": "testcafe firefox:headless",
+    "testcafe:chrome": "testcafe chrome:headless:emulation:width=1364;height=800",
     "testcafe:safari": "testcafe safari:headless",
     "doc": "npm run typedoc -- --options typedoc.js --theme ./node_modules/typedoc-neo-theme/bin/default --plugin typedoc-neo-theme",
     "typedoc": "typedoc"

@@ -67,6 +67,11 @@ testcafe_chrome:
   resource_group: ltsrdev
   script:
     - npm run testcafe:chrome
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
   artifacts:
     when: always
     paths:
@@ -89,6 +94,11 @@ testcafe_firefox:
   resource_group: ltsrdev
   script:
     - npm run testcafe:firefox
+  cache: 
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+      - node_modules/
+    policy: pull
   artifacts:
     when: always
     paths:
