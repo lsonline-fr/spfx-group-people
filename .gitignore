@@ -40,6 +40,14 @@ docs
 jest
 junit.xml
 
+# TestCafé generated files
+testcafe_reports
+testcafe_videos
+testcafe_screenshots
+
+# Environment
+.env
+
 # npm package-lock
 pnpm-lock.yaml
 package-lock.json
