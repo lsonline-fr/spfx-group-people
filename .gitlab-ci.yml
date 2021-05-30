@@ -83,8 +83,8 @@ testcafe_chrome:
 
 testcafe_firefox:
   stage: testcafe
-  needs: ["webpart"]
-  dependencies: [webpart]
+  #needs: ["webpart"]
+  #dependencies: [webpart]
   #only:
   #  - master@SharePoint/sp-dev-fx-webparts/group-people
   #  - dev@SharePoint/sp-dev-fx-webparts/group-people
