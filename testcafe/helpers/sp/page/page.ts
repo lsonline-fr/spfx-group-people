@@ -147,7 +147,7 @@ class SPPage {
 
         // Click on web part
         await t.click(
-            Selector('div').withAttribute('data-automation-id', 'less-text').withText(title)
+            Selector('div').withAttribute('data-automation-id', 'less-text').nth(0).withText(title)
         );
     }
 
