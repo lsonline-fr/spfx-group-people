@@ -23,7 +23,7 @@ test('Should Web Part exists in the SharePoint picker', async t => {
     await t.expect(wpCount).gt(0);
 });
 
-/*test('Should init Web Part by changing the SharePoint group property', async t => {
+test('Should init Web Part by changing the SharePoint group property', async t => {
     await SPPage.editWebPart(0);
     const groupsDd = Selector('#spPropertyPaneContainer .ms-Dropdown').nth(0);
     await t.click(groupsDd);
@@ -175,4 +175,4 @@ test('Should discard changes', async t => {
     await SPPage.edit();
     await SPPage.removeWebPart(0);
     await SPPage.publish();
-});*/
+});
