@@ -109,19 +109,19 @@ test('Should display user initials when no picture specified', async t => {
 test('Should display user email at \'Line 1\'', async t => {
     await t.typeText(Selector('#spPropertyPaneContainer .ms-TextField-wrapper').nth(2).find('input'), 'UserName', { replace: true });
     const primaryText = Selector('div[class*=personaTile_]').nth(0).find('.ms-Persona-primaryText > .ms-TooltipHost').nth(0).textContent;
-    await t.expect(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(await primaryText)).eql(true);
+    await t.expect(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(await primaryText)).eql(true);
 });
 
 test('Should display user email at \'Line 2\'', async t => {
     await t.typeText(Selector('#spPropertyPaneContainer .ms-TextField-wrapper').nth(3).find('input'), 'UserName', { replace: true });
     const secondaryText = Selector('div[class*=personaTile_]').nth(0).find('.ms-Persona-secondaryText > .ms-TooltipHost').nth(0).textContent;
-    await t.expect(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(await secondaryText)).eql(true);
+    await t.expect(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(await secondaryText)).eql(true);
 });
 
 test('Should display user email at \'Line 3\'', async t => {
     await t.typeText(Selector('#spPropertyPaneContainer .ms-TextField-wrapper').nth(4).find('input'), 'UserName', { replace: true });
     const tertiaryText = Selector('div[class*=personaTile_]').nth(0).find('.ms-Persona-tertiaryText > .ms-TooltipHost').nth(0).textContent;
-    await t.expect(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(await tertiaryText)).eql(true);
+    await t.expect(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(await tertiaryText)).eql(true);
 });
 
 test('Should display an empty \'Line 3\' when no property defined', async t => {
