@@ -32,11 +32,11 @@ install:
 
 coverage:
   stage: test
-  # needs: ["install"]
-  # dependencies: [install]
+  needs: ["install"]
+  dependencies: [install]
   only:
-    - master@SharePoint/sp-dev-fx-webparts/group-people
-    # - merge_requests
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
+    - merge_requests
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
@@ -59,8 +59,8 @@ testcafe_chrome:
   needs: ["webpart"]
   dependencies: [webpart]
   only:
-   - master@SharePoint/sp-dev-fx-webparts/group-people
-   - dev@SharePoint/sp-dev-fx-webparts/group-people
+    - master@SharePoint/sp-dev-fx-webparts/group-people
+    - dev@SharePoint/sp-dev-fx-webparts/group-people
   image: circleci/node:10-browsers
   environment:
     name: ltsrdev
@@ -83,11 +83,11 @@ testcafe_chrome:
 
 testcafe_firefox:
   stage: testcafe
-  needs: ["install"]
-  dependencies: [install]
-  # only:
-  #  - master@SharePoint/sp-dev-fx-webparts/group-people
-  #  - dev@SharePoint/sp-dev-fx-webparts/group-people
+  needs: ["webpart"]
+  dependencies: [webpart]
+  only:
+    - master@SharePoint/sp-dev-fx-webparts/group-people
+    - dev@SharePoint/sp-dev-fx-webparts/group-people
   image: circleci/node:10-browsers
   environment:
     name: ltsrdev
@@ -113,7 +113,7 @@ webpart:
   needs: ["install"]
   dependencies: [install]
   only:
-    - master@SharePoint/sp-dev-fx-webparts/group-people
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
   except:
     variables:
