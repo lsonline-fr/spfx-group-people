@@ -16,9 +16,9 @@ cache:
 
 install:
   stage: .pre
-  #only:
-  #  - branches@SharePoint/sp-dev-fx-webparts/group-people
-  #  - merge_requests
+  only:
+    - branches@SharePoint/sp-dev-fx-webparts/group-people
+    - merge_requests
   except:
     variables:
       - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
@@ -83,9 +83,9 @@ testcafe_chrome:
 
 testcafe_firefox:
   stage: testcafe
-  #needs: ["webpart"]
-  #dependencies: [webpart]
-  #only:
+  # needs: ["webpart"]
+  # dependencies: [webpart]
+  # only:
   #  - master@SharePoint/sp-dev-fx-webparts/group-people
   #  - dev@SharePoint/sp-dev-fx-webparts/group-people
   image: circleci/node:10-browsers
@@ -113,7 +113,7 @@ webpart:
   needs: ["install"]
   dependencies: [install]
   only:
-    - branches@SharePoint/sp-dev-fx-webparts/group-people
+    - master@SharePoint/sp-dev-fx-webparts/group-people
     - merge_requests
   except:
     variables:
