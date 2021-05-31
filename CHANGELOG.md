@@ -1,3 +1,28 @@
+## [1.1.1](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/compare/v1.1.0...v1.1.1) (2021-05-31)
+
+
+### Bug Fixes
+
+* **CI:** changelog pull url and static branch repo ([e02bb81](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/e02bb81fbf4d00379c8e8a583ea971ac983e5796))
+* **CI:** CI_SERVER_HOST token sppkg artefact name ([7ed3bce](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/7ed3bce55ec161c56fbc265621f91ed0e528bd0f))
+* **CI:** firefox e2e ([ba506fb](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/ba506fbe494df04753f1d273f77316ed329050f7))
+* **CI:** headless browsers and cache policy ([1a91090](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/1a91090a6768d2ac7682693b8b984c3c771aee69))
+* **CI:** missing '@' into trigger branch ([9c20fd6](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/9c20fd63841a24b19b5ff00cbc9d28de4df9fcc5))
+* **CI:** rollback to static path trigger ([0c66ff6](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/0c66ff66e810649169a24fbc7131f36e44d77fcc))
+* **CI:** rollback trigger with static repo path ([b3f686d](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/b3f686d1af5fd7cb338bf5db5696949389780a61))
+* **CI:** trigger origin repo token ([719e921](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/719e92134bc1ca3628bf9ec8e53803e6ae851604))
+
+
+### Features
+
+* **CI:** e2e ([f535ea2](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/f535ea20d40aa98d3c6448f81e8affcf45db6de2))
+* **CI:** focus on origin repo only and manual log ([bb9d6b3](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/bb9d6b3dce5f47eca06aa4bbfb0164d865fd77c5))
+* **CI:** focus on origin repo only and manual log ([adf1ac0](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/adf1ac0c38a03fc7689debf40d3c194e4ea4ccb4))
+* **CI:** trigger with path token braces ([d49aef1](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/d49aef159c29d5273e9c186c625589c12b47b0d3))
+* **CI:** try to use token rather than static path ([20ef70e](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/commit/20ef70ed6488b616803d3c788084d09461fc4605))
+
+
+
 # [1.1.0](https://gitlab.lsonline.fr/SharePoint/sp-dev-fx-webparts/group-people/compare/v1.0.1...v1.1.0) (2020-09-21)
 
 
