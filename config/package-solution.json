@@ -3,7 +3,7 @@
   "solution": {
     "name": "SharePoint Group People",
     "id": "6b9e0a5d-fc44-44d9-88fd-e2c890db3870",
-    "version": "1.1.0.0",
+    "version": "1.1.0.1",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "developer": {
