@@ -61,6 +61,9 @@ testcafe_chrome:
   only:
     - master@SharePoint/sp-dev-fx-webparts/group-people
     - dev@SharePoint/sp-dev-fx-webparts/group-people
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
   image: circleci/node:10-browsers
   environment:
     name: ltsrdev
@@ -88,6 +91,9 @@ testcafe_firefox:
   only:
     - master@SharePoint/sp-dev-fx-webparts/group-people
     - dev@SharePoint/sp-dev-fx-webparts/group-people
+  except:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /Update Changelog from CI/
   image: circleci/node:10-browsers
   environment:
     name: ltsrdev
